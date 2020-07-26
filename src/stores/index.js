@@ -4,9 +4,9 @@ import configureStore from './createStore';
 import { reducer as AuthReducer } from './auth/Reducers';
 
 export default () => {
-	const rootReducer = combineReducers({
-		authentication: AuthReducer
-	});
+  const rootReducer = combineReducers({
+    authentication: AuthReducer,
+  });
 
-	return configureStore(rootReducer, rootSaga);
+  return configureStore(rootReducer, rootSaga);
 };
