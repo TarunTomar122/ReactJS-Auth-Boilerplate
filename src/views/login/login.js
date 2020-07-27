@@ -30,7 +30,7 @@ class Login extends Component {
 
     return (
       <div>
-        <Header />
+        <Header loggedIn={false}/>
         <Container className="mt-5">
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="formBasicEmail">

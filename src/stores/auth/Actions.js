@@ -2,7 +2,7 @@ import { createActions } from 'reduxsauce';
 
 const { Types, Creators } = createActions({
   /* redux-saga actions */
-  registerUser: null,
+  registerUser: ['data'],
   loginUser: ['data'], // Action to initiate a sign in
   logoutUser: null, // Action to initiate a sign out
   fetchUser: null, // Loading user information at app start up
