@@ -26,11 +26,10 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.props.error);
 
     return (
       <div>
-        <Header loggedIn={false}/>
+        <Header loggedIn={false} />
         <Container className="mt-5">
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="formBasicEmail">

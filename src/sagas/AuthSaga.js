@@ -22,10 +22,10 @@ function* revokeToken() {
 export function* fetchUser() {
   try {
     yield put(AuthActionTypes.loadingUserInfo());
-    // Try to find the token in Cookie 
+    // Try to find the token in Cookie
     //      if found then go ahead and call injectToken
     // If not found then call revoke Token
-  } catch ({ message = "Snap:(" }) {
+  } catch ({ message = 'Snap:(' }) {
     yield call(revokeToken);
     yield put(AuthActionTypes.error(message));
   }

@@ -12,23 +12,26 @@ function Header({ loggedIn }) {
         <Col>
           <h2>FrontEnd-Auth-BoilerPlate</h2>
         </Col>
-        {loggedIn ? <Col className="links pl-3 pr-3">
-          <ul>
-            <Link style={{ color: "black" }}>
-              <li>Profile</li>
-            </Link>
-          </ul>
-        </Col> : <Col className="links pl-3 pr-3">
+        {loggedIn ? (
+          <Col className="links pl-3 pr-3">
             <ul>
-              <Link to='/login' style={{ color: "black" }}>
+              <Link style={{ color: 'black' }}>
+                <li>Profile</li>
+              </Link>
+            </ul>
+          </Col>
+        ) : (
+          <Col className="links pl-3 pr-3">
+            <ul>
+              <Link to="/login" style={{ color: 'black' }}>
                 <li>Login</li>
               </Link>
-              <Link to='/register' style={{ color: "black" }}>
+              <Link to="/register" style={{ color: 'black' }}>
                 <li>Register</li>
               </Link>
             </ul>
           </Col>
-        }
+        )}
       </Row>
     </Container>
   );

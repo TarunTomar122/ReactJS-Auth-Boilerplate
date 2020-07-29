@@ -1,5 +1,5 @@
 export const INITIAL_STATE = {
   token: null,
-  errorMessage: 'No Error',
+  errorMessage: null,
   loadingUserInfo: false,
 };
