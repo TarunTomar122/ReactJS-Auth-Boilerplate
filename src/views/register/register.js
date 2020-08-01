@@ -9,24 +9,34 @@ import Container from 'react-bootstrap/Container';
 import Header from '../../components/Header/Header';
 import AuthActionTypes from '../../stores/auth/Actions';
 
+import { Redirect } from 'react-router-dom';
+
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: null,
       password: null,
-      userName: null,
+      name: null,
     };
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { register } = this.props;
-    register({ email: this.state.email, password: this.state.password, userName: this.state.userName });
-    this.setState({ email: null, password: null, userName: null });
+    register({ email: this.state.email, password: this.state.password, name: this.state.name });
+    this.setState({ email: null, password: null, name: null });
   }
 
   render() {
+
+    const { token, error } = this.props;
+    if (token) {
+      return (
+        <Redirect to={{ pathname: '/home' }} />
+      );
+    }
+
     return (
       <div>
         <Header loggedIn={false} />
@@ -34,8 +44,9 @@ class Register extends Component {
           <Form onSubmit={this.handleSubmit}>
 
             <Form.Group controlId="formBasicText">
-              <Form.Label>User Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter UserName" value={this.state.userName} onChange={(event) => this.setState({ userName: event.target.value })} />
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter name" value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })} />
+              <Form.Text className="text-muted">Name must contain atleast 6 characters</Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
@@ -47,11 +58,13 @@ class Register extends Component {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} />
+              <Form.Text className="text-muted">Password must contain atleast 6 characters</Form.Text>
             </Form.Group>
 
             <Button variant="primary" type="submit">Register</Button>
 
           </Form>
+          {error ? <h4>{error}</h4> : undefined }
         </Container>
       </div>
     );
@@ -62,9 +75,11 @@ Register.propTypes = {
   register: PropTypes.func,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
+  token: state.authentication.token,
   error: state.authentication.errorMessage,
   loading: state.authentication.loadingUserInfo,
 });

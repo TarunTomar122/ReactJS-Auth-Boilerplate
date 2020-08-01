@@ -3,20 +3,25 @@
 import { put, call } from 'redux-saga/effects';
 import AuthActionTypes from '../stores/auth/Actions';
 
+import { login, register } from '../services/auth/index';
+
+import { navigateTo } from '../services/nav/index';
+
 function* injectToken(token) {
   try {
     // Try to Set Token to header and save it as cookie
-    // set the token in the state value of auth actions
-    // Move To HomeScreen if successful
+    yield put(AuthActionTypes.loadToken(token));
+    navigateTo('/home');
   } catch ({ message = 'Snap:(' }) {
-    // Set the Error message and call revoke Token
+    yield put(AuthActionTypes.error(message));
+    yield call(revokeToken);
   }
 }
 
 function* revokeToken() {
   // Remove the token from header and delete the cookie
-  // remove the token from the state also
-  // Navigate back to Login
+  yield put(AuthActionTypes.deleteToken);
+  navigateTo('/login');
 }
 
 export function* fetchUser() {
@@ -33,9 +38,13 @@ export function* fetchUser() {
 
 export function* registerUser({ data }) {
   try {
-    // set auth action type of user loading info to True
-    // Make API request with data to register and get the token
-    // call inject token with the newly found token
+    const token = yield call(register, data);
+    if (token) {
+      yield call(injectToken, token);
+    } else {
+      yield put(AuthActionTypes.error("Such Credentials are not Accepted!"));
+      yield call(revokeToken);
+    }
   } catch ({ message = 'Snap:(' }) {
     yield put(AuthActionTypes.error(message));
   }
@@ -43,9 +52,13 @@ export function* registerUser({ data }) {
 
 export function* loginUser({ data }) {
   try {
-    yield put(AuthActionTypes.loadingUserInfo());
-    // Make API request with data to login and get the token
-    // call inject token with the newly found token
+    const token = yield call(login, data);
+    if (token) {
+      yield call(injectToken, token);
+    } else {
+      yield put(AuthActionTypes.error("Invalid Credentials"));
+      yield call(revokeToken);
+    }
   } catch ({ message = 'Snap:(' }) {
     yield put(AuthActionTypes.error(message));
   }

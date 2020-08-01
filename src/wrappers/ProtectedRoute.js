@@ -6,14 +6,14 @@ import { PropTypes } from 'prop-types';
 
 class ProtectedRoute extends React.Component {
   render() {
-    const { Component } = this.props;
+    const Component = this.props.component;
     const isAuthenticated = this.props.token;
 
     return isAuthenticated ? (
       <Component />
     ) : (
-      <Redirect to={{ pathname: '/login' }} />
-    );
+        <Redirect to={{ pathname: '/login' }} />
+      );
   }
 }
 
@@ -25,4 +25,8 @@ const mapStateToProps = (state) => ({
   token: state.authentication.token,
 });
 
-export default connect(mapStateToProps, {})(ProtectedRoute);
+const mapDispatchToProps = (dispatch) => ({
+  // logout: (data) => dispatch(AuthActionTypes.logoutUser(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProtectedRoute);

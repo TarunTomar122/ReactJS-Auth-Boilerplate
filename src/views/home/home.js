@@ -14,7 +14,7 @@ class Home extends Component {
       <div>
         <Header loggedIn />
         <Container className="mt-5">
-          <h3>Congrats You are now LoggedIn</h3>
+          <h3>Congrats You are now LoggedIn with token {this.props.token}</h3>
         </Container>
       </div>
     );
@@ -25,11 +25,13 @@ Home.propTypes = {
   login: PropTypes.func,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   error: state.authentication.errorMessage,
   loading: state.authentication.loadingUserInfo,
+  token: state.authentication.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

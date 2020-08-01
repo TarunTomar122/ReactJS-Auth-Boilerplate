@@ -9,7 +9,10 @@ import Container from 'react-bootstrap/Container';
 import Header from '../../components/Header/Header';
 import AuthActionTypes from '../../stores/auth/Actions';
 
+import { Redirect } from 'react-router-dom';
+
 class Login extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +29,13 @@ class Login extends Component {
   }
 
   render() {
+
+    const { token, error } = this.props;
+    if (token) {
+      return (
+        <Redirect to={{ pathname: '/home' }} />
+      );
+    }
 
     return (
       <div>
@@ -46,6 +56,7 @@ class Login extends Component {
             <Button variant="primary" type="submit">Login</Button>
 
           </Form>
+          {error ? <h4>{error}</h4> : undefined }
         </Container>
       </div>
     );
@@ -56,9 +67,11 @@ Login.propTypes = {
   login: PropTypes.func,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  token: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
+  token: state.authentication.token,
   error: state.authentication.errorMessage,
   loading: state.authentication.loadingUserInfo,
 });
