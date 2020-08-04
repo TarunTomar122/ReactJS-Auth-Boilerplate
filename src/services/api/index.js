@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-const client = axios.create({
+export const client  = axios.create({
     baseURL: 'http://localhost:3001/api',
     headers: {
         Accept: 'application/json',
     }
 });
 
-export default client;
+export function setAxiosHeader(token) {
+	client.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+export function revokeAxiosHeader() {
+	client.defaults.headers.common.Authorization = null;
+}

@@ -14,7 +14,7 @@ class Home extends Component {
       <div>
         <Header loggedIn />
         <Container className="mt-5">
-          <h3>Congrats You are now LoggedIn with token {this.props.token}</h3>
+          <h3 className="text-center">Congrats You are now LoggedIn. And this is the HOMESCREEN</h3>
         </Container>
       </div>
     );

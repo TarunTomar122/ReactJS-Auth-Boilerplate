@@ -10,12 +10,12 @@ function Header({ loggedIn }) {
     <Container className="header pt-4 pb-4" fluid>
       <Row>
         <Col>
-          <h2>FrontEnd-Auth-BoilerPlate</h2>
+          <h2>ReactJS-Auth-BoilerPlate</h2>
         </Col>
         {loggedIn ? (
           <Col className="links pl-3 pr-3">
             <ul>
-              <Link style={{ color: 'black' }}>
+              <Link style={{ color: 'black' }} to='/profile'>
                 <li>Profile</li>
               </Link>
             </ul>

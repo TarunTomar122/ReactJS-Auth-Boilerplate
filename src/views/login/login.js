@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 import Header from '../../components/Header/Header';
 import AuthActionTypes from '../../stores/auth/Actions';
 
@@ -21,6 +22,11 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    const { fetchUser } = this.props;
+    fetchUser();
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const { login } = this.props;
@@ -30,7 +36,7 @@ class Login extends Component {
 
   render() {
 
-    const { token, error } = this.props;
+    const { token, error, loading } = this.props;
     if (token) {
       return (
         <Redirect to={{ pathname: '/home' }} />
@@ -41,6 +47,8 @@ class Login extends Component {
       <div>
         <Header loggedIn={false} />
         <Container className="mt-5">
+          {loading ? <div className="text-center"><Spinner animation="grow" /></div> : null}
+          {error ? <div className="text-center"><p>{error}</p></div> : undefined}
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -56,7 +64,6 @@ class Login extends Component {
             <Button variant="primary" type="submit">Login</Button>
 
           </Form>
-          {error ? <h4>{error}</h4> : undefined }
         </Container>
       </div>
     );
@@ -78,6 +85,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(AuthActionTypes.loginUser(data)),
+  fetchUser: () => dispatch(AuthActionTypes.fetchUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

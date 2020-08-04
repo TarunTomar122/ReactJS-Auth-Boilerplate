@@ -1,4 +1,4 @@
-import client from '../api/index';
+import {client} from '../api/index';
 
 export async function login(data) {
     try {

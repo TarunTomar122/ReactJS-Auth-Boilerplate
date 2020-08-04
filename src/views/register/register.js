@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Header from '../../components/Header/Header';
+import Spinner from 'react-bootstrap/Spinner';
 import AuthActionTypes from '../../stores/auth/Actions';
 
 import { Redirect } from 'react-router-dom';
@@ -30,7 +31,7 @@ class Register extends Component {
 
   render() {
 
-    const { token, error } = this.props;
+    const { token, error, loading } = this.props;
     if (token) {
       return (
         <Redirect to={{ pathname: '/home' }} />
@@ -41,6 +42,8 @@ class Register extends Component {
       <div>
         <Header loggedIn={false} />
         <Container className="mt-5">
+        {loading ? <div className="text-center"><Spinner animation="grow" /></div> : null}
+        {error ? <div className="text-center"><p>{error}</p></div>: undefined}
           <Form onSubmit={this.handleSubmit}>
 
             <Form.Group controlId="formBasicText">

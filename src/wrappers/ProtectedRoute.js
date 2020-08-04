@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 class ProtectedRoute extends React.Component {
+
   render() {
     const Component = this.props.component;
     const isAuthenticated = this.props.token;
@@ -26,7 +27,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // logout: (data) => dispatch(AuthActionTypes.logoutUser(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProtectedRoute);
