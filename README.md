@@ -1,3 +1,3 @@
-# ReactJS-Auth-Boilerplate
+# Bare-Minim ReactJS Auth BoilerPlate
 
-My BoilerPlate for Authentication with custom server using React JS.
+Custom BoilerPlate for Authentication (custom nodejs server) in React JS.
